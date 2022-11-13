@@ -15,6 +15,10 @@ class Employee:
         self.__height = height
         self.__age = age
 
+    def __str__(self):
+        return f'Имя сотрудника: {self.name}, зарплата: {self.salary}, должность: {self.position}, ' \
+               f'вес: {self.weight}, рост: {self.height}, возраст: {self.age},'
+
     @classmethod
     def verify_name(cls, name):
         if type(name) != str:
