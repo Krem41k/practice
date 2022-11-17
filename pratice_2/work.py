@@ -1,27 +1,82 @@
 from tkinter import *
+from tkinter.messagebox import showinfo, showerror
 
-welcome_line = 'Здесь можно вычислить: сумму кредита, годовой процент, ежемесечная выплата, длительность выплат'
+welcome_line = 'Здесь можно вычислит длительность выплат в зависимости от: ' \
+               'суммы кредита, годового процента и ежемесечной выплаты'
 please_line = 'Внесите данные:'
 sum_credit = 'Сумма кредита = '
 year_percent = 'Годовой процент = '
 monthly_payment = 'Ежемесечная выплата = '
-duration_payments = 'Длительность выплат ='
-note = 'Выберите параметр который хотите рассчитать и посставьте там знак вопроса =>?,\nдругие же заполните значениями'
+
+note = 'Заполните ячейки значениями'
+
 
 def work():
-    def clicked():
-        res = 'Привет {}'.format(txt.get())
-        lbl.configure(text=res)
+    def isfloat(num):
+        try:
+            float(num)
+            return True
+        except ValueError:
+            return False
+
+    def isint(num):
+        try:
+            float(num)
+            return True
+        except ValueError:
+            return False
+
+    def check_values(sum, percent, payment):
+        if isfloat(sum):
+            sum = float(sum)
+        elif isint(sum):
+            sum = int(sum)
+        else:
+            showerror(title="Информация", message='Неккоректный тип данных')
+
+        if isfloat(percent):
+            percent = float(percent)
+        elif isint(percent):
+            percent = int(percent)
+        else:
+            showerror(title="Информация", message='Неккоректный тип данных')
+
+        if isfloat(payment):
+            payment = float(payment)
+        elif isint(payment):
+            payment = int(payment)
+        else:
+            showerror(title="Информация", message='Неккоректный тип данных')
+
+        return sum, percent, payment
+
+    def calculate():
+        sum, percent, payment = check_values(sum_value.get(), percent_value.get(), payment_value.get())
+
+        count = 0
+        while sum >= 0:
+            if percent > payment:
+                break
+            sum += sum * (percent / 100)
+            sum -= payment
+            count += 1
+
+        if count == 0:
+            message = 'Невозможно погасить кредит'
+        else:
+            message = f'Количество месяцев для погашения: {count}'
+
+        showinfo(title="Информация", message=message)
+
+    def clear():
+        sum_value.delete(0, END)
+        percent_value.delete(0, END)
+        payment_value.delete(0, END)
 
     window = Tk()
 
     window.title('Добро пожаловать в графическое приложение Python')
-    window.geometry('775x200')
-
-    for c in range(3):
-        window.columnconfigure(index=c, weight=1)
-    for r in range(3):
-        window.rowconfigure(index=r, weight=1)
+    window.geometry('920x200')
 
     welcome_label = Label(window, text=welcome_line, font="Arial 12")
     welcome_label.place(x=0, y=0)
@@ -44,13 +99,11 @@ def work():
     payment_value = Entry(window, width=10)
     payment_value.place(x=200, y=100)
 
-    duration_label = Label(window, text=duration_payments, font="Arial 12")
-    duration_label.place(x=0, y=125)
-    duration_value = Entry(window, width=10)
-    duration_value.place(x=200, y=125)
+    btn_calculate = Button(window, text='Рассчитать!', height=3, width=10, command=calculate)
+    btn_calculate.place(x=400, y=65)
 
-    btn = Button(window, text='Рассчитать!', height=3, width=10, command=clicked)
-    btn.place(x=400, y=65)
+    btn_clear = Button(window, text='Очистить!', height=3, width=10, command=clear)
+    btn_clear.place(x=600, y=65)
 
     note_label = Label(window, text=note, font="Arial 14")
     note_label.place(x=0, y=145)
