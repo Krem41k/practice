@@ -17,7 +17,7 @@ class Employee:
 
     def __str__(self):
         return f'Имя сотрудника: {self.name}, зарплата: {self.salary}, должность: {self.position}, ' \
-               f'вес: {self.weight}, рост: {self.height}, возраст: {self.age},'
+               f'вес: {self.weight:.2f}, рост: {self.height:.2f}, возраст: {self.age}\n'
 
     @classmethod
     def verify_name(cls, name):
