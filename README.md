@@ -10,4 +10,4 @@
 
 
 
-![Результат работы](https://user-images.githubusercontent.com/87601709/202384244-0139527f-3315-48ee-a16d-92066a868352.gif)
+![Результат](https://user-images.githubusercontent.com/87601709/202386754-7148ecf3-4e4d-4380-b2de-e64ea09eeab5.gif)
