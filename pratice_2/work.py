@@ -32,21 +32,21 @@ def work():
         elif isint(sum):
             sum = int(sum)
         else:
-            showerror(title="Информация", message='Неккоректный тип данных')
+            showerror(title="Информация", message='Неккоректный тип данных для суммы кредита')
 
         if isfloat(percent):
             percent = float(percent)
         elif isint(percent):
             percent = int(percent)
         else:
-            showerror(title="Информация", message='Неккоректный тип данных')
+            showerror(title="Информация", message='Неккоректный тип данных годового процента')
 
         if isfloat(payment):
             payment = float(payment)
         elif isint(payment):
             payment = int(payment)
         else:
-            showerror(title="Информация", message='Неккоректный тип данных')
+            showerror(title="Информация", message='Неккоректный тип данных для ежемесячной выплаты')
 
         return sum, percent, payment
 
